@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: notebook-db
+    #    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: notebook
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_PORT: 5432
+    volumes:
+      - ./var/db/postgresql:/var/lib/postgresql/data:rw
