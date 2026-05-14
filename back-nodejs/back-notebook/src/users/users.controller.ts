@@ -8,6 +8,7 @@ import { RolesGuard } from 'src/auth/roles-guard';
 import { AddRoleDto } from './dto/add-role.dto';
 import { BanUserDto } from './dto/ban-user.dto';
 import { ValidationPipe } from 'src/pipes/validation.pipe';
+import { RoleValues } from 'src/consts/role-values';
 
 @ApiTags('Пользователи')
 @Controller('users')
@@ -15,17 +16,17 @@ export class UsersController {
 
     constructor(private userService: UsersService) {}
 
-    @ApiOperation({summary: 'Создание пользователя'})
-    @ApiResponse({status: 200, type: User})
-    @UsePipes(ValidationPipe)
-    @Post()
-    create (@Body() userDto: CreateUserDto) {
-        return this.userService.createUser(userDto);
-    }
+    // @ApiOperation({summary: 'Создание пользователя'})
+    // @ApiResponse({status: 200, type: User})
+    // @UsePipes(ValidationPipe)
+    // @Post()
+    // create (@Body() userDto: CreateUserDto) {
+    //     return this.userService.createUser(userDto);
+    // }
 
     @ApiOperation({summary: 'Список всех пользователей'})
     @ApiResponse({status: 200, type: [User]})
-    @Roles('ADMIN')
+    @Roles(RoleValues.ADMIN)
     @UseGuards(RolesGuard)
     // @UseGuards(JwtAuthGuard)
     @Get()
@@ -35,7 +36,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'Добавить роль'})
     @ApiResponse({status: 200})
-    @Roles('ADMIN')
+    @Roles(RoleValues.ADMIN)
     @UseGuards(RolesGuard)
     // @UseGuards(JwtAuthGuard)
     @Post('/role')
@@ -45,7 +46,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'Удалить роль'})
     @ApiResponse({status: 200})
-    @Roles('ADMIN')
+    @Roles(RoleValues.ADMIN)
     @UseGuards(RolesGuard)
     // @UseGuards(JwtAuthGuard)
     @Post('/role-delete')
@@ -55,7 +56,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'Заблокировать пользователя'})
     @ApiResponse({status: 200})
-    @Roles('ADMIN')
+    @Roles(RoleValues.ADMIN)
     @UseGuards(RolesGuard)
     // @UseGuards(JwtAuthGuard)
     @Post('/ban')
@@ -65,7 +66,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'Разблокировать пользователя'})
     @ApiResponse({status: 200})
-    @Roles('ADMIN')
+    @Roles(RoleValues.ADMIN)
     @UseGuards(RolesGuard)
     // @UseGuards(JwtAuthGuard)
     @Post('/unban')
