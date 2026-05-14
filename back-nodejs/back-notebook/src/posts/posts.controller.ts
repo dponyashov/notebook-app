@@ -1,12 +1,14 @@
 import { Body, Controller, HttpException, HttpStatus, Post, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
 import { PostsService } from './posts.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles-guard';
 import { RoleValues } from 'src/consts/role-values';
 import { ReciveCreatePostDto } from './dto/recive-create-post.dto';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Post as ResponcePost } from './posts.model';
 
+@ApiTags('Посты')
 @Controller('posts')
 export class PostsController {
 
@@ -14,6 +16,7 @@ export class PostsController {
 
     @Roles(RoleValues.USER)
     @UseGuards(RolesGuard)
+    @ApiResponse({status: 200, type: [ResponcePost]})
     @Post()
     @UseInterceptors(FileInterceptor('image'))
     createPost( @Req() request: Request,
