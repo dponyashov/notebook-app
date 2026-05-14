@@ -8,7 +8,6 @@ import { UserRoles } from "src/roles/user-roles.model";
 interface UserCteationAttrs {
     
     email: string;
-    
     password: string;
 }
 
@@ -49,5 +48,4 @@ export class User extends Model<User, UserCteationAttrs> {
 
     @HasMany(() => Post)
     declare posts: Post[];
-
 }

@@ -8,7 +8,7 @@ import { ReciveCreatePostDto } from './dto/recive-create-post.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Post as ResponcePost } from './posts.model';
 
-@ApiTags('Посты')
+@ApiTags('Посты пользователей')
 @Controller('posts')
 export class PostsController {
 
@@ -25,7 +25,7 @@ export class PostsController {
 
         
         if (!request['user']) {
-            throw new HttpException('Пользователь не авторизован', HttpStatus.FORBIDDEN);
+            throw new HttpException('Пользователь не выполнил вход', HttpStatus.FORBIDDEN);
         }
 
         return this.postrService.createPost({ ...dto, userId: request['user'].id }, image);
