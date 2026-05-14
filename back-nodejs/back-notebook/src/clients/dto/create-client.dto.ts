@@ -9,7 +9,7 @@ export class CreateClientDto {
 
     @ApiProperty({example: '+7(999) 111-22-33', description: 'Телефон клиента'})
     @IsString( { message: 'Должно быть строкой' } )
-    @IsPhoneNumber()
+    @IsPhoneNumber('RU', {message: 'Неверный формат телефона'})
     readonly phone: string;
 
     @ApiProperty({example: 'Какое-то описание клиента', description: 'Описание клиента'})
