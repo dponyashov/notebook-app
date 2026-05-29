@@ -5,9 +5,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { RolesService } from 'src/roles/roles.service';
 import { AddRoleDto } from './dto/add-role.dto';
 import { BanUserDto } from './dto/ban-user.dto';
+import { AnswerUserDto } from './dto/answer-user.dto';
+import { UserMapper } from 'src/mappers/user-mapper';
 
 @Injectable()
-export class UsersService {   
+export class UsersService {     
     
     constructor(@InjectModel(User) private userRepository: typeof User,
                                     private roleService: RolesService) {}
@@ -25,13 +27,33 @@ export class UsersService {
         return user;
     }
 
-    async getAllUsers() {
-        const users = await this.userRepository.findAll({ include: { all: true }});
-        return users;
+    async getAllUsers(): Promise<AnswerUserDto[]> {
+        const users = await this.userRepository.findAll({ 
+            include: {all: true }, 
+            // attributes: { exclude: ['password'] }
+        });
+        const userDtos: AnswerUserDto[] = users.map(user => {
+            return UserMapper.entityToDto(user);
+        });
+
+        return userDtos;
     }
 
-    async getUserByEmail(email: string) {
-        const user = await this.userRepository.findOne({ where: { email }, include: { all: true }});
+    async getUserById(id: number) {
+        const user = await this.userRepository.findByPk(id);
+        if( !user ) {
+            throw new HttpException('Пользователь не найдет по ID', HttpStatus.NOT_FOUND);
+        }
+
+        return UserMapper.entityToDto(user);
+    }  
+
+    async getUserByEmail(email: string, withPassword = false) {
+        const user = await this.userRepository.findOne({ 
+            where: { email }, 
+            include: { all: true }, 
+            attributes: { exclude: withPassword ? [] : ['password']}
+        });
         return user;
     }
 

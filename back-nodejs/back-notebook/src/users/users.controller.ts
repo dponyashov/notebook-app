@@ -7,6 +7,7 @@ import { RolesGuard } from 'src/auth/roles-guard';
 import { AddRoleDto } from './dto/add-role.dto';
 import { BanUserDto } from './dto/ban-user.dto';
 import { RoleValues } from 'src/consts/role-values';
+import { AnswerUserDto } from './dto/answer-user.dto';
 
 @ApiTags('Пользователи')
 @Controller('users')
@@ -15,7 +16,7 @@ export class UsersController {
     constructor(private userService: UsersService) {}
 
     @ApiOperation({summary: 'Список всех пользователей'})
-    @ApiResponse({status: 200, type: [User]})
+    @ApiResponse({status: 200, type: [AnswerUserDto]})
     @Roles(RoleValues.ADMIN)
     @UseGuards(RolesGuard)
     // @UseGuards(JwtAuthGuard)

@@ -14,6 +14,8 @@ import { ServeStaticModule } from "@nestjs/serve-static";
 import { ClientsModule } from './clients/clients.module';
 import * as path from 'path';
 import { Client } from "./clients/clients.model";
+import { SchedulesModule } from './schedules/schedules.module';
+import { Schedule } from "./schedules/schedules.model";
 
 @Module({
     imports: [
@@ -32,7 +34,7 @@ import { Client } from "./clients/clients.model";
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models:[User, Role, UserRoles, Post, Client],
+            models:[User, Role, UserRoles, Post, Client, Schedule],
             autoLoadModels: true,
             synchronize: true
         }),
@@ -41,7 +43,8 @@ import { Client } from "./clients/clients.model";
         AuthModule,
         PostsModule,
         FilesModule,
-        ClientsModule
+        ClientsModule,
+        SchedulesModule
     ]
 })
 

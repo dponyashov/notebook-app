@@ -1,8 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Exclude } from "class-transformer";
 import { AllowNull, AutoIncrement, BelongsToMany, Column, DataType, Default, HasMany, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
 import { Post } from "src/posts/posts.model";
 import { Role } from "src/roles/roles.model";
 import { UserRoles } from "src/roles/user-roles.model";
+import { Schedule } from "src/schedules/schedules.model";
 
 
 interface UserCteationAttrs {
@@ -30,7 +32,8 @@ export class User extends Model<User, UserCteationAttrs> {
 
     @ApiProperty({example: 'Qwerty123', description: 'Пароль пользователя'})
     @AllowNull(false)
-     @Column(DataType.STRING)
+    @Exclude()
+    @Column(DataType.STRING)
     password!: string;
 
     @ApiProperty({example: 'false', description: 'Признак блокировки пользователя'})
@@ -48,4 +51,7 @@ export class User extends Model<User, UserCteationAttrs> {
 
     @HasMany(() => Post)
     declare posts: Post[];
+
+    @HasMany(() => Schedule)
+    declare schedules: Schedule[];
 }
