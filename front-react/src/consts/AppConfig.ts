@@ -2,7 +2,7 @@
 const startHour = 8;
 const startMinut = 0
 
-const endHour = 8;
+const endHour = 17;
 const endMinut = 0
 
 export const AppConfig = {

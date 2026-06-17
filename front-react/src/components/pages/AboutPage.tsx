@@ -1,10 +1,10 @@
-import { AppRoutes } from '../../consts/routes';
+import { PageCaptions } from '../../consts/pageCaptions';
 import styles from '../../css/containers/div-container.module.css';
 
 const AboutPage = () => {
   return (
     <div className={styles.divContainer}>
-      <h3>{AppRoutes.ABOUT.caption}</h3>
+      <h3>{PageCaptions.ABOUT}</h3>
       <p>тут будет какой то текст о проекте</p>
     </div>
   )

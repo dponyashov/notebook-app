@@ -10,10 +10,11 @@ import ThemedInput from '../UI/ThemedInput';
 import styles from '../../css/containers/div-container.module.css'
 import ThemedTextArea from '../UI/ThemedTextArea';
 import { useUser } from '../../hooks/useUser';
-import { timeStringToNumber } from '../../utils/time-util';
+import { timeNumberToString, timeStringToNumber } from '../../utils/time-util';
 import ThemedSelect from '../UI/ThemedSelect';
 import { fakeClientList, fakeUserList } from '../../fake/fakeSelectOptions';
 import type { OptionType } from '../../types/ui-types';
+import { AppConfig } from '../../consts/AppConfig';
 
 interface ScheduleFormProps {
     caption: string;
@@ -24,8 +25,8 @@ interface ScheduleFormProps {
 const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm, ...props}) => {
 
     const [selectedDate] = useState<Date>((schedule ? schedule.date : new Date()));
-    const [start, setStart] = useState<string>((schedule ? schedule.beginTime : '08:00'));
-    const [finish, setFinish] = useState<string>((schedule ? schedule.endTime : '17:00'));
+    const [start, setStart] = useState<string>((schedule ? schedule.beginTime : timeNumberToString(AppConfig.startTime)));
+    const [finish, setFinish] = useState<string>((schedule ? schedule.endTime : timeNumberToString(AppConfig.endTime)));
     const [description, setDescription] = useState<string>((schedule ? (schedule.isEmpty ? '' : schedule.description) : ''));
     const [userId, setUserId] = useState<number>((schedule ? (schedule.isEmpty ? 0 : schedule.userId) : 0));
     const [clientId, setClientId] = useState<number>((schedule ? (schedule.isEmpty ? 0 : schedule.clientId) : 0));
