@@ -1,0 +1,1 @@
+export type ErrorType = { caption: string, text: string }

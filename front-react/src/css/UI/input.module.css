@@ -1,0 +1,9 @@
+.themedInput {
+    border: black solid 1px;
+    border-radius: 3px;
+}
+
+.themedTextArea {
+    border: black solid 1px;
+    border-radius: 3px;
+}
