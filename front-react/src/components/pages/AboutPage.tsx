@@ -1,12 +1,12 @@
+import { Typography } from '@mui/material';
 import { PageCaptions } from '../../consts/pageCaptions';
-import styles from '../../css/containers/div-container.module.css';
+import TemplatePage from './TemplatePage';
 
 const AboutPage = () => {
   return (
-    <div className={styles.divContainer}>
-      <h3>{PageCaptions.ABOUT}</h3>
-      <p>тут будет какой то текст о проекте</p>
-    </div>
+    <TemplatePage pageCaption={PageCaptions.ABOUT}>
+      <Typography>тут будет какой то текст о проекте</Typography>
+    </TemplatePage>
   )
 }
 

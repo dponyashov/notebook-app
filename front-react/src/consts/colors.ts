@@ -1,3 +1,24 @@
+import { createTheme } from "@mui/material";
+
+export const theme = createTheme({
+  
+  palette: {
+    // primary: {
+    //   main: '#ff5722',
+    // },
+    // secondary: {
+    //   main: '#00bcd4',
+    // },
+    emptyCard: {
+      main: '#b5cbfb',
+    },
+    fillCard: {
+      main: '#98b8fe',
+    },
+  },
+});
+
+
 export const Colors = {
     primary: '#6849a7',
     warning: '#cc475a',

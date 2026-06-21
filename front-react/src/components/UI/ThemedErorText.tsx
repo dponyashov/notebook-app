@@ -1,6 +1,7 @@
 import type { FC } from "react";
 
-import styles from '../../css/UI/div-error.module.css'
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 
 interface ThemedErorTextProps {
     caption: string;
@@ -8,12 +9,14 @@ interface ThemedErorTextProps {
 }
 
 const ThemedErorText: FC<ThemedErorTextProps> = ({caption = '', text = '', ...props}) => {
-  return (
-    <div className={styles.divError}
-      {...props}>
-      <span><b>{caption}</b>{text}</span>
-    </div>
-  )
+    return (
+        <Alert severity="error" {...props}>
+          <AlertTitle>Error</AlertTitle>
+          <span><strong>{caption}</strong>{text}</span>
+        </Alert>
+
+
+    )
 }
 
 export default ThemedErorText

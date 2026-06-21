@@ -1,6 +1,7 @@
 import type { FC } from 'react';
-import styles from '../../css/UI/select.module.css';
 import type { OptionType } from '../../types/ui-types';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 interface ThemedSelectProps {
     children?: any;
@@ -24,16 +25,17 @@ const ThemedSelect: FC<ThemedSelectProps> = ({children, value, options, onChange
     }
 
     return (
-        <select className={styles.themedSelect} {...props}
+        <Select {...props}
             value={value}
+            label={children}
             onChange={e => { onChange(e.target.value) }}
         >
-            {children && <option disabled value='0'>{children}</option>}
+            {children && <MenuItem disabled value='0'>{children}</MenuItem>}
             {options && options.map((option) => (
-                <option value={option.value} key={option.value}>{option.name}</option>
+                <MenuItem value={option.value} key={option.value}>{option.name}</MenuItem>
             ))}
-        </select>
+        </Select>
     )
 }
 
-export default ThemedSelect
+export default ThemedSelect;

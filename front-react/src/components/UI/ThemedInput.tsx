@@ -1,9 +1,9 @@
-import styles from '../../css/UI/input.module.css'
+import TextField from '@mui/material/TextField'
 
-const ThemedInput = ({...props}) => {
+const ThemedInput = ({ children='', ...props }) => {
   return (
-    <input className={styles.themedInput} {...props}/>
+    <TextField label={children} {...props} />
   )
 }
 
-export default ThemedInput
+export default ThemedInput;

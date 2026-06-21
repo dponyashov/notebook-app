@@ -6,9 +6,10 @@ import { PageCaptions } from '../../consts/pageCaptions';
 import ThemedInput from '../UI/ThemedInput';
 import ThemedErorText from '../UI/ThemedErorText';
 
-import styles from '../../css/containers/div-container.module.css'
 import Spacer from '../UI/Spacer';
 import type { ErrorType } from '../../types/error-types';
+import TemplatePage from './TemplatePage';
+import { Box } from '@mui/material';
 
 
 const RegistrationPage = () => {
@@ -43,15 +44,24 @@ const RegistrationPage = () => {
   }
 
   return (
-    <div className={styles.divContainer}>
-      <h3>{PageCaptions.REGISTRY}</h3>
-      <Spacer />
-      <div className={styles.divContainer}>
+    <TemplatePage pageCaption={PageCaptions.REGISTRY}>
+      <Box style={{display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center', 
+                    alignItems: 'center',
+                    gap: '10px',
+                    marginTop: '15px'
+      }}>
         <ThemedInput type="text" placeholder="введите email" value={email} onChange={e => setEmail(e.target.value)}/>
         <ThemedInput type="password" placeholder="введите пароль" value={passw} onChange={e => setPassw(e.target.value)}/>
-      </div>
-      <Spacer height='15px' />
-      <div className={styles.divContainer}>
+      </Box>
+      <Box style={{display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center', 
+                    alignItems: 'center',
+                    gap: '10px',
+                    marginTop: '15px'
+      }}>
         <ThemedButton onClick={registrationHandle}>{AppRoutes.REGISTRATION.actionText}</ThemedButton>
         <ThemedButton onClick={loginHandle}>{AppRoutes.LOGIN.actionText}</ThemedButton>
         <Spacer height='25px' />
@@ -59,8 +69,8 @@ const RegistrationPage = () => {
           (errors.length > 0) && errors.map((error, index) => 
                           <ThemedErorText key={index} caption={error.caption + ': '} text={error.text}/>)          
         }
-      </div>
-    </div>    
+      </Box>
+    </TemplatePage>    
   )
 }
 

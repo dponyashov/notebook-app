@@ -1,5 +1,10 @@
+import { Typography } from "@mui/material"
+import TemplatePage from "./TemplatePage"
+
 export default function NotFoundPage() {
   return (
-    <div>404 - Страница не найдена!</div>
+    <TemplatePage>
+      <Typography>404 - Страница не найдена!</Typography>
+    </TemplatePage>
   )
 }

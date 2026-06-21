@@ -1,21 +1,18 @@
 import type { ISchedule } from '../../types/schedule-types';
 import ScheduleItem from './schedule-item';
 
-import styles from '../../css/UI/div-list.module.css';
-import CustomModal from '../UI/modal/CustomModal';
+import { List } from '@mui/material';
 
 interface ScheduleListProps {
     items: ISchedule[]
 }
 
-const ScheduleList: React.FC<ScheduleListProps> = ({items, ...props}) => {
-
+const ScheduleList: React.FC<ScheduleListProps> = ({items}) => {
     return (
-        <div className={styles.divVertList}
-            {...props}>
-            { !items && <h6>Нет данных для загрузки</h6> }
-            { items && ( items.map((item: ISchedule) => <ScheduleItem key={item.id} item={item}/>) ) }
-        </div>
+            <List style={{maxHeight: '80vh', overflow: 'auto'}} >
+                { !items && <h6>Нет данных для загрузки</h6> }
+                { items && ( items.map((item: ISchedule) => <ScheduleItem key={item.id} item={item}/>) ) }
+            </List>
     )
 }
 

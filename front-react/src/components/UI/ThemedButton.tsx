@@ -1,8 +1,9 @@
-import styles from '../../css/UI/button.module.css'
+import Button from '@mui/material/Button'
 
 const ThemedButton = ({...props}) => {
   return (
-    <button className={styles.themedButton} {...props}/>
+    <Button  {...props}></Button>
+    // <button className={styles.themedButton} {...props}/>
   )
 }
 

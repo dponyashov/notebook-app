@@ -1,8 +1,0 @@
-.divVertList {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    min-width: 300px;
-    justify-content: left;
-    align-items: center;
-}

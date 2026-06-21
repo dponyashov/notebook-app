@@ -7,7 +7,6 @@ import ThemedButton from '../UI/ThemedButton';
 import { UiCaptions } from '../../consts/uiCaptions';
 import ThemedInput from '../UI/ThemedInput';
 
-import styles from '../../css/containers/div-container.module.css'
 import ThemedTextArea from '../UI/ThemedTextArea';
 import { useUser } from '../../hooks/useUser';
 import { timeNumberToString, timeStringToNumber } from '../../utils/time-util';
@@ -15,6 +14,7 @@ import ThemedSelect from '../UI/ThemedSelect';
 import { fakeClientList, fakeUserList } from '../../fake/fakeSelectOptions';
 import type { OptionType } from '../../types/ui-types';
 import { AppConfig } from '../../consts/AppConfig';
+import { Box, FormControl, Grid, Typography } from '@mui/material';
 
 interface ScheduleFormProps {
     caption: string;
@@ -22,7 +22,7 @@ interface ScheduleFormProps {
     closeForm: () => void;
 }
 
-const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm, ...props}) => {
+const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm}) => {
 
     const [selectedDate] = useState<Date>((schedule ? schedule.date : new Date()));
     const [start, setStart] = useState<string>((schedule ? schedule.beginTime : timeNumberToString(AppConfig.startTime)));
@@ -31,7 +31,6 @@ const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm, ...p
     const [userId, setUserId] = useState<number>((schedule ? (schedule.isEmpty ? 0 : schedule.userId) : 0));
     const [clientId, setClientId] = useState<number>((schedule ? (schedule.isEmpty ? 0 : schedule.clientId) : 0));
 
-
     const [clientOptions, setClientOptions] = useState<OptionType[]>([]);
     const [userOptions, setUserOptions] = useState<OptionType[]>([]);
 
@@ -39,9 +38,12 @@ const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm, ...p
 
     const { user } = useUser();
 
+    
+    
     const saveHandle = () => {
         const errorList = [];
 
+        // if(timeStringToNumber(start.format('HH:mm')) >= timeStringToNumber(finish.format('HH:mm'))){
         if(timeStringToNumber(start) >= timeStringToNumber(finish)){
             errorList.push({caption: 'Время', text: 'Время начала должно быть меньше времени окончания'});
         }
@@ -73,67 +75,70 @@ const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm, ...p
         closeForm();
     }
 
-    useEffect(
-        ()=>{
-            const clientOptions: OptionType[] = fakeClientList.map(
-                client => {
-                    const option: OptionType = {value: client.id, name: client.name}
-                    return option;
-                }
-            );
-            setClientOptions(clientOptions);
+    useEffect( ()=> {
+        const clientOptions: OptionType[] = fakeClientList.map(
+            client => {
+                const option: OptionType = {value: client.id, name: client.name}
+                return option;
+            }
+        );
+        setClientOptions(clientOptions);
 
-            const userOptions: OptionType[] = fakeUserList.map(
-                user => {
-                    const option: OptionType = {value: user.id, name: user.name}
-                    return option;
-                }
-            );
-            setUserOptions(userOptions);
-        }, []
-    );
+        const userOptions: OptionType[] = fakeUserList.map(
+            user => {
+                const option: OptionType = {value: user.id, name: user.name}
+                return option;
+            }
+        );
+        setUserOptions(userOptions);
+
+        if (user && userId <= 0) {
+            setUserId(user.id);
+        }
+    }, []);
 
     return (
-        <div className={styles.divContainer} {...props}>
-            <h4>{caption}{schedule.isEmpty ? ' - Добавление' : ' - Редактирование'}</h4>
-            <Spacer height='15px'/>
-            <h5>Запись на <b>{selectedDate.toISOString().split('T')[0]}</b></h5>
-            <Spacer height='10px'/>
-
-            <div style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-                <span>начало <ThemedInput type='time'value={start} onChange={e => setStart(e.target.value)}/></span>
-                <span>окончание <ThemedInput type='time'value={finish} onChange={e => setFinish(e.target.value)}/></span>
-            </div>             
+        <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px'}}>
+            <Typography variant='h5'>{caption}{schedule.isEmpty ? ' - Добавление' : ' - Редактирование'}</Typography>
+            <Typography variant='h6'>Запись на {selectedDate.toISOString().split('T')[0]}</Typography>
             <Spacer />
-
+            <Box style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+                <Box style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
+                    <Typography>начало</Typography>
+                    <ThemedInput type='time'value={start} onChange={e => setStart(e.target.value)}/>
+                </Box>
+                <Box style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
+                    <Typography>окончание</Typography>
+                    <ThemedInput type='time'value={finish} onChange={e => setFinish(e.target.value)}/>
+                </Box>
+            </Box>
+            <Spacer />
             <ThemedSelect 
                 value={userId} 
                 options={userOptions} 
                 onChange={e => setUserId(Number( e ))}
-                style={{width: '100%'}}
+                fullWidth
                 // readOnly={true}
             >
                 Выберите пользователя
             </ThemedSelect>
             <Spacer height='10px' />
-
             <ThemedSelect 
                 value={clientId} 
                 options={clientOptions} 
                 onChange={e => setClientId(Number( e ))}
-                style={{width: '100%'}}
+                fullWidth
+                // readOnly={true}
             >
                 Выберите клиента
             </ThemedSelect>
             <Spacer />
-
             <ThemedTextArea
-                placeholder='введите описание'
                 value={description} 
                 onChange={e => setDescription(e.target.value)}
-                rows='3'
-                style={{width: '100%'}}
-            />            
+            >
+                Введите описание
+            </ThemedTextArea>
             <Spacer />
 
             <ThemedButton onClick={saveHandle}>{UiCaptions.BUTTONS.SAVE}</ThemedButton>
@@ -142,7 +147,7 @@ const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm, ...p
             {errors && errors.length > 0 && errors.map((error, index) => 
                             <ThemedErorText key={index} caption={error.caption + ': '} text={error.text}/>)
             }
-        </div>
+        </Box>
     )
 }
 

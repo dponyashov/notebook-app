@@ -8,12 +8,11 @@ import ScheduleList from "../schedule/schedule-list";
 import ThemedInput from "../UI/ThemedInput";
 import { PageCaptions } from "../../consts/pageCaptions";
 
-import styles from '../../css/containers/div-container.module.css';
-import Spacer from "../UI/Spacer";
+import TemplatePage from "./TemplatePage";
+import { Box } from "@mui/material";
 
 const SchedulePage = () => {
 
-    // const { user } = useUser();
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [preperedList, setPreparedList] = useState<ISchedule[]>([]);
     const { scheduleList, loaded, setList } = useSchedule(currentDate);
@@ -30,21 +29,24 @@ const SchedulePage = () => {
     }
 
     return (
-        <div className={styles.divContainer}>
-            <h3>{PageCaptions.SCHEDULE}</h3>
-            <Spacer/>
-            <div>
-                <label><b>Текущая дата </b>
-                    <ThemedInput type="date"
-                        value = { currentDate.toISOString().split('T')[0] }
-                        onChange = { e => selectDateHandle(new Date(e.target.value))}
-                    />
+        <TemplatePage pageCaption={PageCaptions.SCHEDULE}>
+            <Box style={{display: 'flex', 
+                        justifyContent: 'center', 
+                        alignItems: 'center',
+                        gap: 2,
+                        marginTop: '5px'}}
+            >
+                <label>
+                    <b>Текущая дата </b>
                 </label>
-            </div>
-            <Spacer height="30px" />         
+                <ThemedInput type="date"
+                    value = { currentDate.toISOString().split('T')[0] }
+                    onChange = { e => selectDateHandle(new Date(e.target.value))}
+                />
+            </Box>
             { !loaded && <ThemedLoader /> }
             { loaded && <ScheduleList items = {preperedList}/> }
-        </div>
+        </TemplatePage>
     )
 }
 
