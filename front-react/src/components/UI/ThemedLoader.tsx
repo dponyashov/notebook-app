@@ -2,9 +2,9 @@ import Box from "@mui/material/Box"
 import CircularProgress from "@mui/material/CircularProgress"
 // import LinearProgress from "@mui/material/LinearProgress"
 
-export const ThemedLoader = () => {
+export const ThemedLoader = ({ ...props }) => {
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} { ...props }>
             <CircularProgress color="primary" size={40}
             title='Загрузка...'
             />

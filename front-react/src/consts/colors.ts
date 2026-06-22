@@ -1,7 +1,38 @@
 import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
-  
+  components: {
+    MuiTypography:{
+      defaultProps: {
+        variantMapping: {
+          // Ваши маппинги
+        },
+      },
+      styleOverrides: {
+        root: {
+          margin: 0, // Убирает отступы глобально для всех Typography
+          padding: 0,
+          font: ''
+        },
+      },
+    },
+    MuiTextField: {
+      defaultProps: {
+        size: 'small', // Все поля станут маленькими по умолчанию
+        variant: 'outlined', // Также можно задать внешний вид (outlined, filled, standard)
+      },
+    },
+  },
+  typography: {
+    fontSize: 12,
+    // fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    
+    // Можно переопределить свойства для конкретных стилей (вариантов)
+    // h1: {
+    //   fontSize: '2.5rem',
+    //   fontWeight: 600,
+    // },
+  },
   palette: {
     // primary: {
     //   main: '#ff5722',

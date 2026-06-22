@@ -9,7 +9,7 @@ interface ScheduleListProps {
 
 const ScheduleList: React.FC<ScheduleListProps> = ({items}) => {
     return (
-            <List style={{maxHeight: '80vh', overflow: 'auto'}} >
+            <List style={{maxHeight: '75vh', overflow: 'auto'}} >
                 { !items && <h6>Нет данных для загрузки</h6> }
                 { items && ( items.map((item: ISchedule) => <ScheduleItem key={item.id} item={item}/>) ) }
             </List>

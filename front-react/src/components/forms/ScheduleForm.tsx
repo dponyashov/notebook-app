@@ -14,15 +14,16 @@ import ThemedSelect from '../UI/ThemedSelect';
 import { fakeClientList, fakeUserList } from '../../fake/fakeSelectOptions';
 import type { OptionType } from '../../types/ui-types';
 import { AppConfig } from '../../consts/AppConfig';
-import { Box, FormControl, Grid, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import ThemedTimePicker from '../UI/ThemedTimePicker';
+import { FormCaptions } from '../../consts/formCaption';
 
 interface ScheduleFormProps {
-    caption: string;
     schedule: ISchedule;
     closeForm: () => void;
 }
 
-const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm}) => {
+const ScheduleForm: FC<ScheduleFormProps> = ({schedule, closeForm}) => {
 
     const [selectedDate] = useState<Date>((schedule ? schedule.date : new Date()));
     const [start, setStart] = useState<string>((schedule ? schedule.beginTime : timeNumberToString(AppConfig.startTime)));
@@ -40,7 +41,7 @@ const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm}) => 
 
     
     
-    const saveHandle = () => {
+    const saveHandle = (e) => {
         const errorList = [];
 
         // if(timeStringToNumber(start.format('HH:mm')) >= timeStringToNumber(finish.format('HH:mm'))){
@@ -70,9 +71,8 @@ const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm}) => 
         //TODO тут отправляемся сохранять запись
         console.log(`Сохраняем запись\ndescription='${description}'\nstart=='${start}', finish='${finish}'\nuserId='${userId}', clientId='${clientId}'`);
 
-
-
         closeForm();
+        e.stopPropagation();
     }
 
     useEffect( ()=> {
@@ -99,20 +99,24 @@ const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm}) => 
 
     return (
         <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px'}}>
-            <Typography variant='h5'>{caption}{schedule.isEmpty ? ' - Добавление' : ' - Редактирование'}</Typography>
+            <Typography variant='h5'>
+                {FormCaptions.SCHEDULEFORM.caption}
+                {schedule.isEmpty 
+                    ? FormCaptions.SCHEDULEFORM.postfix.ADD 
+                    : FormCaptions.SCHEDULEFORM.postfix.EDIT
+                }
+            </Typography>
             <Typography variant='h6'>Запись на {selectedDate.toISOString().split('T')[0]}</Typography>
-            <Spacer />
+            <Spacer/>
             <Box style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-                <Box style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
-                    <Typography>начало</Typography>
-                    <ThemedInput type='time'value={start} onChange={e => setStart(e.target.value)}/>
-                </Box>
-                <Box style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
-                    <Typography>окончание</Typography>
-                    <ThemedInput type='time'value={finish} onChange={e => setFinish(e.target.value)}/>
-                </Box>
+                <ThemedTimePicker value={start} onChange={e => setStart(e.target.value)}>
+                    {UiCaptions.TIMEPIKERS.START}
+                </ThemedTimePicker>
+                <ThemedTimePicker value={finish} onChange={e => setFinish(e.target.value)}>
+                    {UiCaptions.TIMEPIKERS.FINISH}
+                </ThemedTimePicker>
             </Box>
-            <Spacer />
+            <Spacer height='10px'/>
             <ThemedSelect 
                 value={userId} 
                 options={userOptions} 
@@ -120,9 +124,9 @@ const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm}) => 
                 fullWidth
                 // readOnly={true}
             >
-                Выберите пользователя
+                {UiCaptions.SELECT.USER}
             </ThemedSelect>
-            <Spacer height='10px' />
+            <Spacer />
             <ThemedSelect 
                 value={clientId} 
                 options={clientOptions} 
@@ -130,22 +134,20 @@ const ScheduleForm: FC<ScheduleFormProps> = ({caption, schedule, closeForm}) => 
                 fullWidth
                 // readOnly={true}
             >
-                Выберите клиента
+                {UiCaptions.SELECT.CLIENT}
             </ThemedSelect>
-            <Spacer />
+            <Spacer height='10px'/>
             <ThemedTextArea
                 value={description} 
                 onChange={e => setDescription(e.target.value)}
             >
                 Введите описание
             </ThemedTextArea>
-            <Spacer />
-
+            <Spacer height='15px'/>
             <ThemedButton onClick={saveHandle}>{UiCaptions.BUTTONS.SAVE}</ThemedButton>
             <Spacer height='10px' />
-
             {errors && errors.length > 0 && errors.map((error, index) => 
-                            <ThemedErorText key={index} caption={error.caption + ': '} text={error.text}/>)
+                <ThemedErorText key={index} caption={error.caption + ': '} text={error.text}/>)
             }
         </Box>
     )

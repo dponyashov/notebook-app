@@ -5,11 +5,12 @@ import type { ISchedule } from "../../types/schedule-types";
 import { ThemedLoader } from "../UI/ThemedLoader";
 import { getSchedulesForDate } from "../../fake/fakeSchedules";
 import ScheduleList from "../schedule/schedule-list";
-import ThemedInput from "../UI/ThemedInput";
 import { PageCaptions } from "../../consts/pageCaptions";
 
 import TemplatePage from "./TemplatePage";
 import { Box } from "@mui/material";
+import ThemedDatePicker from "../UI/ThemedDatePicker";
+import { UiCaptions } from "../../consts/uiCaptions";
 
 const SchedulePage = () => {
 
@@ -23,9 +24,13 @@ const SchedulePage = () => {
         }        
     }, [loaded, scheduleList]);
 
-    const selectDateHandle = (date: Date) => {
-        setCurrentDate(date);
-        setList(getSchedulesForDate(date));
+    const selectDateHandle = (date: string) => {
+        let selectedDate = new Date();
+        if( !isNaN(Date.parse(date))){
+            selectedDate = new Date(date);
+        }
+        setCurrentDate(selectedDate);
+        setList(getSchedulesForDate(selectedDate));
     }
 
     return (
@@ -36,13 +41,12 @@ const SchedulePage = () => {
                         gap: 2,
                         marginTop: '5px'}}
             >
-                <label>
-                    <b>Текущая дата </b>
-                </label>
-                <ThemedInput type="date"
+                <ThemedDatePicker style={{marginTop: '20px'}}
                     value = { currentDate.toISOString().split('T')[0] }
-                    onChange = { e => selectDateHandle(new Date(e.target.value))}
-                />
+                    onChange = { e => selectDateHandle(e.target.value) }
+                >
+                    {UiCaptions.DATEPICKERS.CURRENT}
+                </ThemedDatePicker>
             </Box>
             { !loaded && <ThemedLoader /> }
             { loaded && <ScheduleList items = {preperedList}/> }

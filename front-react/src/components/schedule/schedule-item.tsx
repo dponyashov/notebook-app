@@ -1,6 +1,6 @@
 import type { ISchedule } from '../../types/schedule-types';
 
-import CustomModal from '../UI/modal/CustomModal';
+import CustomModal from '../UI/CustomModal';
 import ScheduleForm from '../forms/ScheduleForm';
 import { useState } from 'react';
 import { Card, useTheme } from '@mui/material';
@@ -12,25 +12,29 @@ interface ScheduleItemProps {
 
  const ScheduleItem:React.FC<ScheduleItemProps> = ({item}) => {
 
-    const [showModal, setShowModal] = useState<boolean>(false);
+    const [openModal, setOpenModal] = useState<boolean>(false);
 
     const theme = useTheme();
 
-    const clickHandle = () => {
-        setShowModal(true);
+    const openHandle = () => {
+        setOpenModal(true);
+    }
+
+    const closeHandle = () => {
+        setOpenModal(false);
     }
 
     return (
-            <Card onClick={clickHandle} 
+            <Card onClick={openHandle} 
                 style={{ 
                     backgroundColor: (item.isEmpty ? theme.palette.emptyCard.main : theme.palette.fillCard.main), 
-                    marginTop: '2px' 
+                    margin: '3px'
                 }}
             >
                 {
-                    showModal && 
-                    <CustomModal visible={showModal} setVisible={setShowModal}>
-                        <ScheduleForm caption='Запись расписания' schedule={item} closeForm={ () => setShowModal(false) } />
+                    openModal &&
+                    <CustomModal open={openModal} onClose={closeHandle}>
+                        <ScheduleForm schedule={item} closeForm={ closeHandle } />
                     </CustomModal>
                 }
                 <ScheduleContent item={item} />

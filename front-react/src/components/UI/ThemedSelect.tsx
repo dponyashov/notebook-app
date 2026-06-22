@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import type { OptionType } from '../../types/ui-types';
-import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { TextField } from '@mui/material';
 
 interface ThemedSelectProps {
     children?: any;
@@ -10,7 +10,6 @@ interface ThemedSelectProps {
     onChange: (e: any) => void;
     readOnly?: boolean;
 }
-
 
 const ThemedSelect: FC<ThemedSelectProps> = ({children, value, options, onChange, readOnly=false, ...props }) => {
 
@@ -25,7 +24,7 @@ const ThemedSelect: FC<ThemedSelectProps> = ({children, value, options, onChange
     }
 
     return (
-        <Select {...props}
+        <TextField select {...props}
             value={value}
             label={children}
             onChange={e => { onChange(e.target.value) }}
@@ -34,7 +33,7 @@ const ThemedSelect: FC<ThemedSelectProps> = ({children, value, options, onChange
             {options && options.map((option) => (
                 <MenuItem value={option.value} key={option.value}>{option.name}</MenuItem>
             ))}
-        </Select>
+        </TextField>
     )
 }
 

@@ -1,5 +1,6 @@
 import { AppBar, Box, Container, Grid, Toolbar, Typography } from "@mui/material"
 import { AppConfig } from "../../consts/AppConfig"
+import { Margin } from "@mui/icons-material"
 
 const TemplatePage = ({children, pageCaption=''}) => {
   return (
@@ -19,13 +20,14 @@ const TemplatePage = ({children, pageCaption=''}) => {
         <Grid container
             direction='column'
             spacing = {1}
-            style={{height: '100vh'}}
+            style={{maxHeight: '87vh'}}
         >
             {children}
         </Grid>
         <Box style={{display: 'flex', 
                     justifyContent: 'center', 
-                    alignItems: 'center'}}
+                    alignItems: 'center',
+                    marginTop: 'auto'}}
         >
             <Typography color="primary">&copy; Д. В. Поняшов, 2026 - {(new Date()).getFullYear()}</Typography>
         </Box>

@@ -5,7 +5,7 @@ interface SpacerProps {
   height?: string;
 }
 
-const Spacer: FC<SpacerProps> = ({ width = '100%', height = '20px', ...props}) => {
+const Spacer: FC<SpacerProps> = ({ width = '100%', height = '5px', ...props}) => {
   return (
     <div style={{ width, height}} {...props}/>
   )

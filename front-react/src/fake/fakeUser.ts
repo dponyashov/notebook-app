@@ -1,7 +1,8 @@
 // export const currentUser = null;
 export const currentUser = {
     id: 1,
-    login: 'Текущий авторизовавшийся пользователь',
+    login: 'login_user1',
+    name: 'Первый Пользователь',
     roles: [
         {
             name: 'USER',

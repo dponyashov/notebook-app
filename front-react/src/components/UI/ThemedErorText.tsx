@@ -11,8 +11,14 @@ interface ThemedErorTextProps {
 const ThemedErorText: FC<ThemedErorTextProps> = ({caption = '', text = '', ...props}) => {
     return (
         <Alert severity="error" {...props}>
-          <AlertTitle>Error</AlertTitle>
-          <span><strong>{caption}</strong>{text}</span>
+            <AlertTitle>
+                <span>
+                    <strong>
+                        {caption}
+                    </strong>
+                    {text}
+                </span>
+            </AlertTitle>
         </Alert>
 
 

@@ -1,15 +1,29 @@
 import { Link } from "react-router-dom"
 import { AppRoutes } from "../../consts/routes";
 import { PageCaptions } from "../../consts/pageCaptions";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import TemplatePage from "./TemplatePage";
 
 const MainPage = () => {
     return (
         <TemplatePage pageCaption={PageCaptions.HOME}>
-          <p><Link to={AppRoutes.LOGIN.value}><Typography>{AppRoutes.LOGIN.caption}</Typography></Link></p>
-          <p><Link to={AppRoutes.SCHEDULES.value}><Typography>{AppRoutes.SCHEDULES.caption}</Typography></Link></p>
-          <p><Link to={AppRoutes.ABOUT.value}><Typography>{AppRoutes.ABOUT.caption}</Typography></Link></p>
+            <Box style={{
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100vh'
+            }}>
+                <Link to={AppRoutes.LOGIN.value}>
+                    <Typography variant="h4">{AppRoutes.LOGIN.caption}</Typography>
+                </Link>
+                <Link to={AppRoutes.SCHEDULES.value}>
+                    <Typography variant="h3">{AppRoutes.SCHEDULES.caption}</Typography>
+                </Link>
+                <Link to={AppRoutes.ABOUT.value}>
+                    <Typography variant="h4">{AppRoutes.ABOUT.caption}</Typography>
+                </Link>
+            </Box>
         </TemplatePage>
     )
 }
