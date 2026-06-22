@@ -6,7 +6,6 @@ import ThemedInput from "../UI/ThemedInput";
 import ThemedErorText from "../UI/ThemedErorText";
 
 import { PageCaptions } from "../../consts/pageCaptions";
-import Spacer from "../UI/Spacer";
 import type { ErrorType } from "../../types/error-types";
 import TemplatePage from "./TemplatePage";
 import { Box } from "@mui/material";
@@ -46,29 +45,22 @@ const LoginPage = () => {
 
   return (
     <TemplatePage pageCaption={PageCaptions.LOGIN}>
-      <Box style={{display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center', 
-                    alignItems: 'center',
-                    gap: '10px',
-                    marginTop: '15px'
-      }}>
-        <ThemedInput type="text" placeholder="введите email" value={email} onChange={e => setEmail(e.target.value)}/>
-        <ThemedInput type="password" placeholder="введите пароль" value={passw} onChange={e => setPassw(e.target.value)}/>
-      </Box>
-      <Box style={{display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center', 
-                    alignItems: 'center',
-                    gap: '10px',
-                    marginTop: '15px',
-      }}>
-        <ThemedButton onClick={loginHandle}>{AppRoutes.LOGIN.actionText}</ThemedButton>
-        <ThemedButton onClick={registrationHandle}>{AppRoutes.REGISTRATION.actionText}</ThemedButton>
-        {
-          (errors.length > 0) && errors.map((error, index) => 
-                          <ThemedErorText key={index} caption={error.caption + ': '} text={error.text}/>)          
-        }
+      <Box style={{
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                height: '100vh'                
+                }}>
+          <ThemedInput type="text" placeholder="введите email" value={email} onChange={e => setEmail(e.target.value)}/>
+          <ThemedInput type="password" placeholder="введите пароль" value={passw} onChange={e => setPassw(e.target.value)}/>
+          <ThemedButton onClick={loginHandle}>{AppRoutes.LOGIN.actionText}</ThemedButton>
+          <ThemedButton onClick={registrationHandle}>{AppRoutes.REGISTRATION.actionText}</ThemedButton>
+          {
+            (errors.length > 0) && errors.map((error, index) => 
+                            <ThemedErorText key={index} caption={error.caption + ': '} text={error.text}/>)          
+          }
       </Box>
     </TemplatePage>    
   )

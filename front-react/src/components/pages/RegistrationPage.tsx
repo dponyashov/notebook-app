@@ -6,7 +6,6 @@ import { PageCaptions } from '../../consts/pageCaptions';
 import ThemedInput from '../UI/ThemedInput';
 import ThemedErorText from '../UI/ThemedErorText';
 
-import Spacer from '../UI/Spacer';
 import type { ErrorType } from '../../types/error-types';
 import TemplatePage from './TemplatePage';
 import { Box } from '@mui/material';
@@ -45,26 +44,18 @@ const RegistrationPage = () => {
 
   return (
     <TemplatePage pageCaption={PageCaptions.REGISTRY}>
-      <Box style={{display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center', 
-                    alignItems: 'center',
-                    gap: '10px',
-                    marginTop: '15px'
-      }}>
+      <Box style={{
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                height: '100vh'                
+                }}>
         <ThemedInput type="text" placeholder="введите email" value={email} onChange={e => setEmail(e.target.value)}/>
         <ThemedInput type="password" placeholder="введите пароль" value={passw} onChange={e => setPassw(e.target.value)}/>
-      </Box>
-      <Box style={{display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center', 
-                    alignItems: 'center',
-                    gap: '10px',
-                    marginTop: '15px'
-      }}>
         <ThemedButton onClick={registrationHandle}>{AppRoutes.REGISTRATION.actionText}</ThemedButton>
         <ThemedButton onClick={loginHandle}>{AppRoutes.LOGIN.actionText}</ThemedButton>
-        <Spacer height='25px' />
         {
           (errors.length > 0) && errors.map((error, index) => 
                           <ThemedErorText key={index} caption={error.caption + ': '} text={error.text}/>)          
