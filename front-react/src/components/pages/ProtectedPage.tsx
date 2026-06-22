@@ -1,9 +1,9 @@
 import ErrorPage from "./ErrorPage";
 import { useUser } from "../../hooks/useUser";
-import { ThemedLoader } from "../UI/ThemedLoader";
-import LoginPage from "./LoginPage";
 import type { FC } from "react";
 import { Navigate } from "react-router-dom";
+import { AppRoutes } from "../../consts/routes";
+import LoaderPage from "./LoaderPage";
 
 
 interface ProtectedPageProps {
@@ -19,7 +19,7 @@ export const ProtectedPage: FC<ProtectedPageProps> = ({ roleName = '', children 
         if(authChecked) {
             if( !user ) {
                 console.log('Go to LoginPage');
-                return <Navigate to='/login' />
+                return <Navigate to={AppRoutes.LOGIN.value} />
                 
                 // return (<LoginPage />)
             } else if (roleName && roleName.trim() !== ''){
@@ -35,9 +35,9 @@ export const ProtectedPage: FC<ProtectedPageProps> = ({ roleName = '', children 
         }
     // }, [user, authChecked]);
 
-    if( !authChecked || !user ){ 
+    if( !authChecked ){ 
         return (
-            <ThemedLoader />
+            <LoaderPage />
         )
     }
 

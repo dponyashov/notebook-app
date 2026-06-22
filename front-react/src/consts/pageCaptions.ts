@@ -3,6 +3,7 @@ export const PageCaptions = {
     LOGIN: 'Вход',
     REGISTRY: 'Регистрация',
     SCHEDULE: 'Расписание',
+    LOAD: 'Загрузка...',
     ABOUT: 'О нас',
     ERROR: 'Ошибка',
 }

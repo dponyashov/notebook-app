@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppRoutes } from "../../consts/routes";
 import ThemedButton from "../UI/ThemedButton";
@@ -9,6 +9,7 @@ import { PageCaptions } from "../../consts/pageCaptions";
 import type { ErrorType } from "../../types/error-types";
 import TemplatePage from "./TemplatePage";
 import { Box } from "@mui/material";
+import { useUser } from "../../hooks/useUser";
 
 
 const LoginPage = () => {
@@ -18,6 +19,8 @@ const LoginPage = () => {
     const [errors, setErrors] = useState<ErrorType[]>([]);
 
     const navigate = useNavigate();
+
+    const {user, authChecked} = useUser();
 
     const loginHandle = () => {
 
@@ -42,6 +45,12 @@ const LoginPage = () => {
   const registrationHandle = () => {
     navigate(AppRoutes.REGISTRATION.value);
   }
+
+  useEffect(()=>{
+    if(user && authChecked) {
+      navigate(AppRoutes.HOME.value);
+    }}, [user, authChecked]
+  )  
 
   return (
     <TemplatePage pageCaption={PageCaptions.LOGIN}>

@@ -3,20 +3,24 @@ import { AppRoutes } from "../../consts/routes";
 import { PageCaptions } from "../../consts/pageCaptions";
 import { Box, Typography } from "@mui/material";
 import TemplatePage from "./TemplatePage";
+import { useUser } from "../../hooks/useUser";
 
 const MainPage = () => {
+    const {user} = useUser();
     return (
         <TemplatePage pageCaption={PageCaptions.HOME}>
             <Box style={{
-                display: 'flex', 
-                flexDirection: 'column', 
+                display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
                 height: '100vh'
             }}>
-                <Link to={AppRoutes.LOGIN.value}>
-                    <Typography variant="h4">{AppRoutes.LOGIN.caption}</Typography>
-                </Link>
+                {
+                    !user && <Link to={AppRoutes.LOGIN.value}>
+                        <Typography variant="h4">{AppRoutes.LOGIN.caption}</Typography>
+                    </Link>
+                }
                 <Link to={AppRoutes.SCHEDULES.value}>
                     <Typography variant="h3">{AppRoutes.SCHEDULES.caption}</Typography>
                 </Link>

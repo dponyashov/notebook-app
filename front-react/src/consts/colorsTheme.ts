@@ -12,7 +12,6 @@ export const theme = createTheme({
         root: {
           margin: 0, // Убирает отступы глобально для всех Typography
           padding: 0,
-          font: ''
         },
       },
     },
@@ -25,13 +24,25 @@ export const theme = createTheme({
   },
   typography: {
     fontSize: 12,
-    // fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: 'Roboto',// "Helvetica", "Arial", sans-serif',
     
     // Можно переопределить свойства для конкретных стилей (вариантов)
-    // h1: {
-    //   fontSize: '2.5rem',
-    //   fontWeight: 600,
-    // },
+    h6: {
+      fontSize: '0.85rem',
+      fontWeight: 600,
+    },
+    h5: {
+      fontSize: '1.0rem',
+      fontWeight: 650,
+    },
+    h4: {
+      fontSize: '1.25rem',
+      fontWeight: 700,
+    },
+    h3: {
+      fontSize: '1.5rem',
+      fontWeight: 750,
+    },
   },
   palette: {
     // primary: {

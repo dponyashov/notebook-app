@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AppRoutes } from '../../consts/routes';
 import ThemedButton from '../UI/ThemedButton';
 import { PageCaptions } from '../../consts/pageCaptions';
@@ -9,6 +9,7 @@ import ThemedErorText from '../UI/ThemedErorText';
 import type { ErrorType } from '../../types/error-types';
 import TemplatePage from './TemplatePage';
 import { Box } from '@mui/material';
+import { useUser } from '../../hooks/useUser';
 
 
 const RegistrationPage = () => {
@@ -18,6 +19,8 @@ const RegistrationPage = () => {
   const [errors, setErrors] = useState<ErrorType[]>([]);
 
   const navigate = useNavigate();
+
+  const {user, authChecked} = useUser();
 
   const registrationHandle = () => {
       const errorList = [];
@@ -41,6 +44,12 @@ const RegistrationPage = () => {
   const loginHandle = () => {
     navigate(AppRoutes.LOGIN.value);
   }
+
+  useEffect(()=>{
+    if(user && authChecked) {
+      navigate(AppRoutes.HOME.value);
+    }}, [user, authChecked]
+  ) 
 
   return (
     <TemplatePage pageCaption={PageCaptions.REGISTRY}>

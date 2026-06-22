@@ -7,22 +7,20 @@ import SchedulePage from './components/pages/SchedulePage'
 import RegistrationPage from './components/pages/RegistrationPage'
 import { Route, Routes } from 'react-router-dom'
 import { AppRoutes } from './consts/routes'
-import { theme } from './consts/colors'
+import { theme } from './consts/colorsTheme'
 import { ThemeProvider } from '@mui/material'
 
 function App() {
-
   return (
     <ThemeProvider theme={theme}>
       <Routes>
-        <Route path={AppRoutes.HOME.value} Component={MainPage}/>
-        <Route path={AppRoutes.LOGIN.value} Component={LoginPage}/>
+        <Route path={AppRoutes.HOME.value} Component={MainPage} />
+        <Route path={AppRoutes.LOGIN.value} Component={LoginPage} />
         <Route path={AppRoutes.REGISTRATION.value} Component={RegistrationPage} />
         <Route path={AppRoutes.SCHEDULES.value} element={
           <ProtectedPage>
-            <SchedulePage/>
+            <SchedulePage />
           </ProtectedPage>}/>
-
         <Route path={AppRoutes.ABOUT.value} Component={AboutPage} />
         <Route path='*' Component={NotFoundPage}/>
       </Routes>
