@@ -3,7 +3,7 @@ import type { ISchedule } from '../../types/schedule-types';
 import CustomModal from '../UI/CustomModal';
 import ScheduleForm from '../forms/ScheduleForm';
 import { useState } from 'react';
-import { Card, useTheme } from '@mui/material';
+import { Card, ListItem, useTheme } from '@mui/material';
 import ScheduleContent from './schedule-content';
 
 interface ScheduleItemProps {
@@ -25,10 +25,11 @@ interface ScheduleItemProps {
     }
 
     return (
+        <ListItem style={{alignItems: "center", marginBottom: '3px'}}>
             <Card onClick={openHandle} 
                 style={{ 
-                    backgroundColor: (item.isEmpty ? theme.palette.emptyCard.main : theme.palette.fillCard.main), 
-                    margin: '3px'
+                    backgroundColor: (item.isEmpty ? theme.palette.emptyCard.main : theme.palette.fillCard.main),
+                    minWidth: '75vh',
                 }}
             >
                 {
@@ -39,6 +40,7 @@ interface ScheduleItemProps {
                 }
                 <ScheduleContent item={item} />
             </Card>
+        </ListItem>
     )
 }
 

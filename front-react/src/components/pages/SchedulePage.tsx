@@ -8,15 +8,18 @@ import ScheduleList from "../schedule/schedule-list";
 import { PageCaptions } from "../../consts/pageCaptions";
 
 import TemplatePage from "./TemplatePage";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ThemedDatePicker from "../UI/ThemedDatePicker";
 import { UiCaptions } from "../../consts/uiCaptions";
+import { useUser } from "../../hooks/useUser";
 
 const SchedulePage = () => {
 
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [preperedList, setPreparedList] = useState<ISchedule[]>([]);
     const { scheduleList, loaded, setList } = useSchedule(currentDate);
+
+    const {user} = useUser();
 
     useEffect(()=> {
         if (loaded) {
@@ -35,12 +38,15 @@ const SchedulePage = () => {
 
     return (
         <TemplatePage pageCaption={PageCaptions.SCHEDULE}>
-            <Box style={{display: 'flex', 
+            <Box style={{display: 'flex',
                         justifyContent: 'center', 
                         alignItems: 'center',
-                        gap: 2,
+                        gap: 150,
                         marginTop: '5px'}}
             >
+                {user &&
+                    <Typography variant="h6">{ user.name }</Typography>
+                }
                 <ThemedDatePicker style={{marginTop: '20px'}}
                     value = { currentDate.toISOString().split('T')[0] }
                     onChange = { e => selectDateHandle(e.target.value) }

@@ -15,6 +15,14 @@ export const theme = createTheme({
         },
       },
     },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          margin: 0,
+          padding: 0,
+        },
+      },
+    },
     MuiTextField: {
       defaultProps: {
         size: 'small', // Все поля станут маленькими по умолчанию

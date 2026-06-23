@@ -3,6 +3,8 @@ export const UiCaptions = {
         SAVE: 'Сохранить',
         CANCEL: 'Отменить',
         EDIT: 'Редатировать',
+        EXIT: 'Выход',
+        ENTRY: 'Вход'
     },
     TIMEPIKERS: {
         START: 'Начало',

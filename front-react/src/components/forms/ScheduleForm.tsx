@@ -5,7 +5,6 @@ import Spacer from '../UI/Spacer';
 import ThemedErorText from '../UI/ThemedErorText';
 import ThemedButton from '../UI/ThemedButton';
 import { UiCaptions } from '../../consts/uiCaptions';
-import ThemedInput from '../UI/ThemedInput';
 
 import ThemedTextArea from '../UI/ThemedTextArea';
 import { useUser } from '../../hooks/useUser';
@@ -13,7 +12,7 @@ import { timeNumberToString, timeStringToNumber } from '../../utils/time-util';
 import ThemedSelect from '../UI/ThemedSelect';
 import { fakeClientList, fakeUserList } from '../../fake/fakeSelectOptions';
 import type { OptionType } from '../../types/ui-types';
-import { AppConfig } from '../../consts/AppConfig';
+import { AppConfig } from '../../consts/appConfig';
 import { Box, Typography } from '@mui/material';
 import ThemedTimePicker from '../UI/ThemedTimePicker';
 import { FormCaptions } from '../../consts/formCaption';
