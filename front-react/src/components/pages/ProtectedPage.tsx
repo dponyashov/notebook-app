@@ -18,18 +18,17 @@ export const ProtectedPage: FC<ProtectedPageProps> = ({ roleName = '', children 
     // useEffect(() => {
         if(authChecked) {
             if( !user ) {
-                console.log('Go to LoginPage');
                 return <Navigate to={AppRoutes.LOGIN.value} />
-                
-                // return (<LoginPage />)
             } else if (roleName && roleName.trim() !== ''){
                 const roles = user.roles;
                 if (!roles) {
-                    <ErrorPage>Нет прав на просмотр этой страницы</ErrorPage>
+                    return <ErrorPage>Нет прав на просмотр этой страницы</ErrorPage>
                 }
-                const checkedRoles = roles.find(role => role.name === roleName);
-                if (!checkedRoles){
-                    <ErrorPage>Нет прав на просмотр этой страницы</ErrorPage>
+
+                console.log('');
+                
+                if (!(roles.filter(role => role.name.trim().toUpperCase() === roleName.trim().toUpperCase()).length > 0)) {
+                    return <ErrorPage>Нет прав на просмотр этой страницы</ErrorPage>
                 }
             }
         }

@@ -24,6 +24,9 @@ const MainPage = () => {
                 <Link to={AppRoutes.SCHEDULES.value}>
                     <Typography variant="h3">{AppRoutes.SCHEDULES.caption}</Typography>
                 </Link>
+                <Link to={AppRoutes.ADMINISTRATION.value}>
+                    <Typography variant="h3">{AppRoutes.ADMINISTRATION.caption}</Typography>
+                </Link>
                 <Link to={AppRoutes.ABOUT.value}>
                     <Typography variant="h4">{AppRoutes.ABOUT.caption}</Typography>
                 </Link>

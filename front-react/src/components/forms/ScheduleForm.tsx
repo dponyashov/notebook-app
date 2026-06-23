@@ -38,12 +38,16 @@ const ScheduleForm: FC<ScheduleFormProps> = ({schedule, closeForm}) => {
 
     const { user } = useUser();
 
-    
+    const checkUserRoles = (roleName: string): boolean => {
+        if (user && user.roles) {
+            return user.roles.filter(role => role.name.trim().toUpperCase() === roleName.trim().toUpperCase()).length > 0;
+        }
+        return false
+    }
     
     const saveHandle = (e) => {
         const errorList = [];
 
-        // if(timeStringToNumber(start.format('HH:mm')) >= timeStringToNumber(finish.format('HH:mm'))){
         if(timeStringToNumber(start) >= timeStringToNumber(finish)){
             errorList.push({caption: 'Время', text: 'Время начала должно быть меньше времени окончания'});
         }
@@ -121,7 +125,7 @@ const ScheduleForm: FC<ScheduleFormProps> = ({schedule, closeForm}) => {
                 options={userOptions} 
                 onChange={e => setUserId(Number( e ))}
                 fullWidth
-                // readOnly={true}
+                readOnly={!checkUserRoles('ADMINISTRATOR')}
             >
                 {UiCaptions.SELECT.USER}
             </ThemedSelect>

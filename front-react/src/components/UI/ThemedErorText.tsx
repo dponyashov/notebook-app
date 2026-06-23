@@ -2,6 +2,7 @@ import type { FC } from "react";
 
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import { Box, Typography } from "@mui/material";
 
 interface ThemedErorTextProps {
     caption: string;
@@ -12,12 +13,10 @@ const ThemedErorText: FC<ThemedErorTextProps> = ({caption = '', text = '', ...pr
     return (
         <Alert severity="error" {...props}>
             <AlertTitle>
-                <span>
-                    <strong>
-                        {caption}
-                    </strong>
-                    {text}
-                </span>
+                <Box style={{display: 'flex', gap: 10}}>
+                    <Typography variant="h6">{caption}</Typography>
+                    <Typography>{text}</Typography>
+                </Box>
             </AlertTitle>
         </Alert>
 

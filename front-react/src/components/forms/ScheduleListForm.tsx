@@ -1,0 +1,61 @@
+import { Box, Typography } from "@mui/material"
+import ThemedDatePicker from "../UI/ThemedDatePicker"
+import { UiCaptions } from "../../consts/uiCaptions"
+import { ThemedLoader } from "../UI/ThemedLoader"
+import ScheduleList from "../schedule/schedule-list"
+import { useEffect, useState, type FC } from "react"
+import type { ISchedule } from "../../types/schedule-types"
+import { scheduleListWithEmpty } from "../../utils/schedule-utils"
+import { getSchedulesForDateAndUserId } from "../../fake/fakeSchedules"
+import type { IShortUser } from "../../types/auth-types"
+
+
+interface ScheduleListFormProps {
+    user: IShortUser;
+}
+
+const ScheduleListForm: FC<ScheduleListFormProps> = ({user}) => {
+    const [currentDate, setCurrentDate] = useState<Date>(new Date());
+    const [preperedList, setPreparedList] = useState<ISchedule[]>([]);
+
+    useEffect(()=> {
+        const scheduleList = getSchedulesForDateAndUserId(currentDate, user.id);
+        if (scheduleList) {
+            setPreparedList(scheduleListWithEmpty(scheduleList, currentDate));
+        }
+        }, [user, currentDate]
+    );
+
+    const selectDateHandle = (date: string) => {
+        let selectedDate = new Date();
+        if ( !isNaN(Date.parse(date))) {
+            selectedDate = new Date(date);
+        }
+        setCurrentDate(selectedDate);
+    }
+
+    return (
+        <>
+            <Box style={{display: 'flex',
+                        justifyContent: 'center', 
+                        alignItems: 'center',
+                        gap: 150,
+                        marginTop: '5px'}}
+            >
+                {user &&
+                    <Typography variant="h6">{ user.name }</Typography>
+                }
+                <ThemedDatePicker style={{marginTop: '20px'}}
+                    value = { currentDate.toISOString().split('T')[0] }
+                    onChange = { e => selectDateHandle(e.target.value) }
+                >
+                    {UiCaptions.DATEPICKERS.CURRENT}
+                </ThemedDatePicker>
+            </Box>
+            { !preperedList && <ThemedLoader /> }
+            { preperedList && <ScheduleList items = {preperedList} /> }
+        </>
+    )
+}
+
+export default ScheduleListForm

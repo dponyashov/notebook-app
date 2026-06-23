@@ -24,7 +24,7 @@ export const schedules: ISchedule[]  = [
         beginTime: '14:00',
         endTime: '15:00',
         description: 'описание записи №3',
-        userId: 1,
+        userId: 2,
         clientId: 3
     }, 
     {   id: 4,
@@ -32,7 +32,7 @@ export const schedules: ISchedule[]  = [
         beginTime: '11:30',
         endTime: '12:30',
         description: 'описание записи №4',
-        userId: 1,
+        userId: 3,
         clientId: 2
     }, 
 ]
@@ -40,6 +40,13 @@ export const schedules: ISchedule[]  = [
 
 export const getSchedulesForDate = (date: Date) => {
     return [...schedules.filter(schedule => schedule.date.toISOString().split('T')[0] === date.toISOString().split('T')[0])];
+}
+
+export const getSchedulesForDateAndUserId = (date: Date, userId: number) => {
+    return [...schedules.filter(schedule => 
+        schedule.date.toISOString().split('T')[0] === date.toISOString().split('T')[0] && 
+        schedule.userId === userId)
+    ];
 }
 
 

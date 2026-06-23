@@ -9,6 +9,7 @@ import { Route, Routes } from 'react-router-dom'
 import { AppRoutes } from './consts/routes'
 import { theme } from './consts/colorsTheme'
 import { ThemeProvider } from '@mui/material'
+import AdministratorPage from './components/pages/AdministratorPage'
 
 function App() {
   return (
@@ -18,9 +19,15 @@ function App() {
         <Route path={AppRoutes.LOGIN.value} Component={LoginPage} />
         <Route path={AppRoutes.REGISTRATION.value} Component={RegistrationPage} />
         <Route path={AppRoutes.SCHEDULES.value} element={
-          <ProtectedPage>
+          <ProtectedPage roleName={AppRoutes.SCHEDULES.role}>
             <SchedulePage />
-          </ProtectedPage>}/>
+          </ProtectedPage>}
+        />
+        <Route path={AppRoutes.ADMINISTRATION.value} element={
+          <ProtectedPage roleName={AppRoutes.ADMINISTRATION.role} >
+            <AdministratorPage />
+          </ProtectedPage>}
+        />
         <Route path={AppRoutes.ABOUT.value} Component={AboutPage} />
         <Route path='*' Component={NotFoundPage}/>
       </Routes>
