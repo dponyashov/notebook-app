@@ -41,22 +41,31 @@ const ScheduleListForm: FC<ScheduleListFormProps> = ({user}) => {
 
     return (
         <>
-            <Box style={{display: 'flex',
-                        justifyContent: 'center', 
-                        alignItems: 'center',
-                        // maxWidth: '80vh',
-                        gap: 150,
-                        marginTop: '5px'}}
-            >
-                {user &&
-                    <Typography variant="h6">{ user.name }</Typography>
-                }
-                <ThemedDatePicker style={{marginTop: '20px'}}
-                    value = { currentDate.toISOString().split('T')[0] }
-                    onChange = { e => selectDateHandle(e.target.value) }
+            <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                <Box sx={{ display: 'flex', 
+                        justifyContent: 'space-between', 
+                        alignItems: 'center' , 
+                        width: '70vh', 
+                        // gap: 150, 
+                        marginTop: '5px' 
+                    }}
+                    // style={{display: 'flex',
+                    //         justifyContent: 'center', 
+                    //         alignItems: 'center',
+                    //         // maxWidth: '80vh',
+                    //         gap: 150,
+                    //         marginTop: '5px'}}
                 >
-                    {UiCaptions.DATEPICKERS.CURRENT}
-                </ThemedDatePicker>
+                    {user &&
+                        <Typography variant="h6">{ user.name }</Typography>
+                    }
+                    <ThemedDatePicker style={{marginTop: '20px'}}
+                        value = { currentDate.toISOString().split('T')[0] }
+                        onChange = { e => selectDateHandle(e.target.value) }
+                    >
+                        {UiCaptions.DATEPICKERS.CURRENT}
+                    </ThemedDatePicker>
+                </Box>
             </Box>
             { !preperedList && <ThemedLoader /> }
             { preperedList && <ScheduleList items = {preperedList} /> }

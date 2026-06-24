@@ -2,7 +2,7 @@ import TemplatePage from "./TemplatePage"
 import { PageCaptions } from "../../consts/pageCaptions";
 
 import ScheduleListForm from "../forms/ScheduleListForm";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { IShortUser} from "../../types/auth-types";
 import { Box } from "@mui/material";
 import ThemedWarningText from "../UI/ThemedWarningText";
@@ -13,7 +13,7 @@ import ThemedUserList from "../UI/ThemedUserList";
 const AdministratorPage = () => {
 
     const [selectedUser, setSelectedUser] = useState<IShortUser | null>();
-    
+
     const userList = fakeUserList.map(user => {return {...user}});
 
     const selectHandle = (user: IShortUser | null) => {

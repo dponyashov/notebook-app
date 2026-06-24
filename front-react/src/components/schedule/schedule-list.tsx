@@ -13,7 +13,7 @@ const ScheduleList: React.FC<ScheduleListProps> = ({items}) => {
         <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
             <List style={{
                 maxHeight: '75vh',
-                minWidth: '80vh',
+                minWidth: '85vh',
                 overflow: 'auto',
             }} >
                 { !items && <h6>Нет данных для загрузки</h6> }

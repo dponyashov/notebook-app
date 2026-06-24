@@ -29,7 +29,7 @@ interface ScheduleItemProps {
             <Card onClick={openHandle} 
                 style={{ 
                     backgroundColor: (item.isEmpty ? theme.palette.emptyCard.main : theme.palette.fillCard.main),
-                    minWidth: '75vh',
+                    minWidth: '80vh',
                 }}
             >
                 {
