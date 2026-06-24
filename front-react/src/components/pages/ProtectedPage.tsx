@@ -24,8 +24,6 @@ export const ProtectedPage: FC<ProtectedPageProps> = ({ roleName = '', children 
                 if (!roles) {
                     return <ErrorPage>Нет прав на просмотр этой страницы</ErrorPage>
                 }
-
-                console.log('');
                 
                 if (!(roles.filter(role => role.name.trim().toUpperCase() === roleName.trim().toUpperCase()).length > 0)) {
                     return <ErrorPage>Нет прав на просмотр этой страницы</ErrorPage>

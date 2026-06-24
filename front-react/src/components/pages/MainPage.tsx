@@ -14,7 +14,8 @@ const MainPage = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '100vh'
+                height: '100vh',
+                gap: 50
             }}>
                 {
                     !user && <Link to={AppRoutes.LOGIN.value}>

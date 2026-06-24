@@ -10,27 +10,30 @@ import { AppRoutes } from './consts/routes'
 import { theme } from './consts/colorsTheme'
 import { ThemeProvider } from '@mui/material'
 import AdministratorPage from './components/pages/AdministratorPage'
+import ScheduleContextProvider from './contexts/scheduleContext'
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Routes>
-        <Route path={AppRoutes.HOME.value} Component={MainPage} />
-        <Route path={AppRoutes.LOGIN.value} Component={LoginPage} />
-        <Route path={AppRoutes.REGISTRATION.value} Component={RegistrationPage} />
-        <Route path={AppRoutes.SCHEDULES.value} element={
-          <ProtectedPage roleName={AppRoutes.SCHEDULES.role}>
-            <SchedulePage />
-          </ProtectedPage>}
-        />
-        <Route path={AppRoutes.ADMINISTRATION.value} element={
-          <ProtectedPage roleName={AppRoutes.ADMINISTRATION.role} >
-            <AdministratorPage />
-          </ProtectedPage>}
-        />
-        <Route path={AppRoutes.ABOUT.value} Component={AboutPage} />
-        <Route path='*' Component={NotFoundPage}/>
-      </Routes>
+      <ScheduleContextProvider>
+        <Routes>
+          <Route path={AppRoutes.HOME.value} Component={MainPage} />
+          <Route path={AppRoutes.LOGIN.value} Component={LoginPage} />
+          <Route path={AppRoutes.REGISTRATION.value} Component={RegistrationPage} />
+          <Route path={AppRoutes.SCHEDULES.value} element={
+            <ProtectedPage roleName={AppRoutes.SCHEDULES.role}>
+              <SchedulePage />
+            </ProtectedPage>}
+          />
+          <Route path={AppRoutes.ADMINISTRATION.value} element={
+            <ProtectedPage roleName={AppRoutes.ADMINISTRATION.role} >
+              <AdministratorPage />
+            </ProtectedPage>}
+          />
+          <Route path={AppRoutes.ABOUT.value} Component={AboutPage} />
+          <Route path='*' Component={NotFoundPage}/>
+        </Routes>
+      </ScheduleContextProvider>
     </ThemeProvider>
   )
 }

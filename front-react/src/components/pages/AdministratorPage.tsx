@@ -13,15 +13,10 @@ import ThemedUserList from "../UI/ThemedUserList";
 const AdministratorPage = () => {
 
     const [selectedUser, setSelectedUser] = useState<IShortUser | null>();
-    const [userList, setUserList] = useState<IShortUser[] | null>(null);
-
-
-    useEffect( ()=>{
-        setUserList(fakeUserList.map(user => {return {id: user.id, name: user.name}}))
-    }, [])
     
+    const userList = fakeUserList.map(user => {return {...user}});
 
-    const selectHandle = (user: IShortUser) => {
+    const selectHandle = (user: IShortUser | null) => {
         setSelectedUser(user);
     }
 
@@ -39,7 +34,7 @@ const AdministratorPage = () => {
                 </Box>
                 <Box style={{width: '100%'}}>
                     {!selectedUser &&
-                        <Box style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
+                        <Box style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '75vh'}}>
                             <ThemedWarningText caption = '' text = 'Необходимо выбрать пользователя'></ThemedWarningText>
                         </Box>
                     }

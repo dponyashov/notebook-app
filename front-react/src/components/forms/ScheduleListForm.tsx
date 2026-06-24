@@ -3,11 +3,12 @@ import ThemedDatePicker from "../UI/ThemedDatePicker"
 import { UiCaptions } from "../../consts/uiCaptions"
 import { ThemedLoader } from "../UI/ThemedLoader"
 import ScheduleList from "../schedule/schedule-list"
-import { useEffect, useState, type FC } from "react"
+import { useContext, useEffect, useState, type FC } from "react"
 import type { ISchedule } from "../../types/schedule-types"
 import { scheduleListWithEmpty } from "../../utils/schedule-utils"
 import { getSchedulesForDateAndUserId } from "../../fake/fakeSchedules"
 import type { IShortUser } from "../../types/auth-types"
+import { ScheduleContext } from "../../contexts/scheduleContext"
 
 
 interface ScheduleListFormProps {
@@ -15,14 +16,18 @@ interface ScheduleListFormProps {
 }
 
 const ScheduleListForm: FC<ScheduleListFormProps> = ({user}) => {
+
+    const {changeScheduleUserId} = useContext(ScheduleContext);
+
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [preperedList, setPreparedList] = useState<ISchedule[]>([]);
 
     useEffect(()=> {
+        changeScheduleUserId(user.id);
         const scheduleList = getSchedulesForDateAndUserId(currentDate, user.id);
         if (scheduleList) {
             setPreparedList(scheduleListWithEmpty(scheduleList, currentDate));
-        }
+        }        
         }, [user, currentDate]
     );
 
@@ -39,6 +44,7 @@ const ScheduleListForm: FC<ScheduleListFormProps> = ({user}) => {
             <Box style={{display: 'flex',
                         justifyContent: 'center', 
                         alignItems: 'center',
+                        // maxWidth: '80vh',
                         gap: 150,
                         marginTop: '5px'}}
             >

@@ -1,4 +1,5 @@
 import { Alert, AlertTitle, Box, Typography } from '@mui/material'
+import type { FC } from 'react';
 
 
 interface ThemedWarningTextProps {
@@ -6,9 +7,9 @@ interface ThemedWarningTextProps {
     text: string;
 }
 
-function ThemedWarningText({caption = '', text = '', ...props}) {
+const ThemedWarningText: FC<ThemedWarningTextProps> = ({caption = '', text = '', ...props}) => {
     return (
-        <Alert severity="warning" {...props}>
+        <Alert severity="warning" {...props} >
             <AlertTitle>
                 <Box style={{display: 'flex', gap: 10}}>
                     <Typography variant="h6">{caption}</Typography>
@@ -16,8 +17,6 @@ function ThemedWarningText({caption = '', text = '', ...props}) {
                 </Box>
             </AlertTitle>
         </Alert>
-
-
     )
 }
 

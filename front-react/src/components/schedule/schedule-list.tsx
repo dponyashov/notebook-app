@@ -4,7 +4,7 @@ import ScheduleItem from './schedule-item';
 import { Box, List } from '@mui/material';
 
 interface ScheduleListProps {
-    items: ISchedule[],
+    items: ISchedule[]
 }
 
 const ScheduleList: React.FC<ScheduleListProps> = ({items}) => {

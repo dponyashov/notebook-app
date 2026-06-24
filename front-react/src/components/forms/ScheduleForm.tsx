@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from 'react'
+import { useContext, useEffect, useState, type FC } from 'react'
 import type { ISchedule } from '../../types/schedule-types';
 import type { ErrorType } from '../../types/error-types';
 import Spacer from '../UI/Spacer';
@@ -16,6 +16,7 @@ import { AppConfig } from '../../consts/appConfig';
 import { Box, Typography } from '@mui/material';
 import ThemedTimePicker from '../UI/ThemedTimePicker';
 import { FormCaptions } from '../../consts/formCaption';
+import { ScheduleContext } from '../../contexts/scheduleContext';
 
 interface ScheduleFormProps {
     schedule: ISchedule;
@@ -23,27 +24,22 @@ interface ScheduleFormProps {
 }
 
 const ScheduleForm: FC<ScheduleFormProps> = ({schedule, closeForm}) => {
+    
+    const { user } = useUser();
+
+    const {selectedUserId} = useContext(ScheduleContext);
 
     const [selectedDate] = useState<Date>((schedule ? schedule.date : new Date()));
     const [start, setStart] = useState<string>((schedule ? schedule.beginTime : timeNumberToString(AppConfig.startTime)));
     const [finish, setFinish] = useState<string>((schedule ? schedule.endTime : timeNumberToString(AppConfig.endTime)));
     const [description, setDescription] = useState<string>((schedule ? (schedule.isEmpty ? '' : schedule.description) : ''));
-    const [userId, setUserId] = useState<number>((schedule ? (schedule.isEmpty ? 0 : schedule.userId) : 0));
+    const [userId, setUserId] = useState<number>((schedule ? (schedule.isEmpty ? selectedUserId : schedule.userId) : selectedUserId));
     const [clientId, setClientId] = useState<number>((schedule ? (schedule.isEmpty ? 0 : schedule.clientId) : 0));
 
     const [clientOptions, setClientOptions] = useState<OptionType[]>([]);
     const [userOptions, setUserOptions] = useState<OptionType[]>([]);
 
     const [errors, setErrors] = useState<ErrorType[]>([]);
-
-    const { user } = useUser();
-
-    const checkUserRoles = (roleName: string): boolean => {
-        if (user && user.roles) {
-            return user.roles.filter(role => role.name.trim().toUpperCase() === roleName.trim().toUpperCase()).length > 0;
-        }
-        return false
-    }
     
     const saveHandle = (e) => {
         const errorList = [];
@@ -125,7 +121,8 @@ const ScheduleForm: FC<ScheduleFormProps> = ({schedule, closeForm}) => {
                 options={userOptions} 
                 onChange={e => setUserId(Number( e ))}
                 fullWidth
-                readOnly={!checkUserRoles('ADMINISTRATOR')}
+                // readOnly={!checkUserRoles('ADMINISTRATOR')}
+                readOnly={!!selectedUserId}
             >
                 {UiCaptions.SELECT.USER}
             </ThemedSelect>

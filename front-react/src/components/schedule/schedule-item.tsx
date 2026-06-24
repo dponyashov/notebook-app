@@ -6,8 +6,8 @@ import { useState } from 'react';
 import { Card, ListItem, useTheme } from '@mui/material';
 import ScheduleContent from './schedule-content';
 
-interface ScheduleItemProps {
-    item: ISchedule
+interface ScheduleItemProps {    
+    item: ISchedule;
 }
 
  const ScheduleItem:React.FC<ScheduleItemProps> = ({item}) => {
